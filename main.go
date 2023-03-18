@@ -25,6 +25,11 @@ func main() {
 	fmt.Println(&geso)
 
 	/* line */
-	notification.PostMessage(geso)
+	notification.PostPickupBrandMessage(geso)
+
+	for i := 0; i < 6; i++ {
+		gear := domain.Gear(geso.LimitedGears[i])
+		notification.PostGearMessage(gear)
+	}
 
 }
