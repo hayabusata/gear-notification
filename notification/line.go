@@ -13,7 +13,8 @@ func PostMessage(geso domain.Gesotown) {
 	msg := "\n本日のピックアップブランド\n" +
 		geso.PickupBrand.Brand.Name + "\n" +
 		"(" + geso.PickupBrand.Brand.UsualGearPower.Name + ")\n" +
-		geso.PickupBrand.SaleEndTime + "まで"
+		geso.PickupBrand.SaleEndTime + "まで\n" +
+		"https://api.lp1.av5ja.srv.nintendo.net/gesotown"
 
 	accessToken := os.Getenv("line-access-token")
 	URL := "https://notify-api.line.me/api/notify"
