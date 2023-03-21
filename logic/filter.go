@@ -2,7 +2,7 @@ package logic
 
 import "gear-notification/domain"
 
-func contains(s string, list []string) bool {
+func containsBrand(s string, list []string) bool {
 	for _, v := range list {
 		if s == v {
 			return true

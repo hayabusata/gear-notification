@@ -26,7 +26,7 @@ var (
 	Rockenberg        = brand{"ロッケンベルグ", "ヒト移動速度アップ"}
 	Cuttlegear        = brand{"アタリメイド", "なし"}
 	GrizzcoIndustries = brand{"クマサン商会", "なし"}
-	Amiibo            = brand{"amiibo", "なし"}
+	Amiibo            = brand{"amiibo", "non"}
 )
 
 func (b *brand) Name() string {
@@ -35,4 +35,30 @@ func (b *brand) Name() string {
 
 func (b *brand) UsualGearPower() string {
 	return b.usualGearPower
+}
+
+func GetBrandNameList() []string {
+	l := make([]string, 0)
+	l = append(l, Zink.Name())
+	l = append(l, Annaki.Name())
+	l = append(l, Tentatek.Name())
+	l = append(l, Zekko.Name())
+	l = append(l, Zekkoree.Name())
+	l = append(l, Emperry.Name())
+	l = append(l, Krakon.Name())
+	l = append(l, Inkline.Name())
+	l = append(l, Emberz.Name())
+	l = append(l, SprashMob.Name())
+	l = append(l, ToniKensa.Name())
+	l = append(l, SquidForce.Name())
+	l = append(l, Barazushi.Name())
+	l = append(l, Forge.Name())
+	l = append(l, Skalop.Name())
+	l = append(l, Firefin.Name())
+	l = append(l, Takoroka.Name())
+	l = append(l, Rockenberg.Name())
+	l = append(l, Cuttlegear.Name())
+	l = append(l, GrizzcoIndustries.Name())
+	l = append(l, Amiibo.Name())
+	return l
 }
