@@ -21,8 +21,7 @@ func main() {
 	badInput, result := logic.ConfirmBrand(brandInputs)
 	if !result {
 		if err = lc.PostBadBrandInputMessage(badInput); err != nil {
-			fmt.Println(err)
-			return
+			panic(err)
 		}
 		fmt.Println(err)
 	}
@@ -39,8 +38,9 @@ func main() {
 
 	// notify
 	for _, gear := range brandFilteredGears {
-		// notification.PostGearMessage(gear)
+		if err = lc.PostGearMessage(gear); err != nil {
+			panic(err)
+		}
 		fmt.Println(gear)
 	}
-	// notification.PostPickupBrandMessage(*geso)
 }

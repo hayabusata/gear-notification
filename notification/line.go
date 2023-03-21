@@ -2,7 +2,6 @@ package notification
 
 import (
 	"gear-notification/domain"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -49,9 +48,7 @@ func (lc *LineClient) PostBadBrandInputMessage(brandName string) error {
 	return nil
 }
 
-// TODO 以下のメソッドはレシーバー設定，errを戻り値にする
-
-func PostPickupBrandMessage(geso domain.Gesotown) {
+func (lc *LineClient) PostPickupBrandMessage(geso domain.Gesotown) error {
 	msg := "\n本日のピックアップブランド\n" +
 		geso.PickupBrand.Brand.Name + "\n" +
 		"(" + geso.PickupBrand.Brand.UsualGearPower.Name + ")\n" +
@@ -63,7 +60,7 @@ func PostPickupBrandMessage(geso domain.Gesotown) {
 
 	u, err := url.ParseRequestURI(URL)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	c := &http.Client{}
 	form := url.Values{}
@@ -72,7 +69,7 @@ func PostPickupBrandMessage(geso domain.Gesotown) {
 	msgBody := strings.NewReader(form.Encode())
 	req, err := http.NewRequest("POST", u.String(), msgBody)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -80,23 +77,22 @@ func PostPickupBrandMessage(geso domain.Gesotown) {
 
 	_, err = c.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+
+	return nil
 }
 
-func PostGearMessage(gear domain.Gear) {
+func (lc *LineClient) PostGearMessage(gear domain.Gear) error {
 	msg := "\n本日のギア\n" +
 		gear.Gear.Name + "[" + gear.Gear.Brand.Name + "]" + "\n" +
 		"(" + gear.Gear.PrimaryGearPower + ")\n" +
 		gear.SaleEndTime + "まで\n" +
 		"https://api.lp1.av5ja.srv.nintendo.net/gesotown"
 
-	accessToken := os.Getenv("line-access-token")
-	URL := "https://notify-api.line.me/api/notify"
-
-	u, err := url.ParseRequestURI(URL)
+	u, err := url.ParseRequestURI(lc.url)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	c := &http.Client{}
 	form := url.Values{}
@@ -105,14 +101,16 @@ func PostGearMessage(gear domain.Gear) {
 	msgBody := strings.NewReader(form.Encode())
 	req, err := http.NewRequest("POST", u.String(), msgBody)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Authorization", "Bearer "+accessToken)
+	req.Header.Set("Authorization", "Bearer "+lc.accessToken)
 
 	_, err = c.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+
+	return nil
 }
