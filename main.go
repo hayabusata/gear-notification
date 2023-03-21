@@ -1,35 +1,30 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+	"gear-notification/client"
 	"gear-notification/domain"
+	"gear-notification/logic"
 	"gear-notification/notification"
-	"io"
-	"net/http"
 )
 
 func main() {
-	res, err := http.Get("https://api.koukun.jp/splatoon/3/geso/")
+	geso, err := client.GetGesotownGearList()
 	if err != nil {
 		panic(err)
 	}
-	defer res.Body.Close()
-	body, _ := io.ReadAll(res.Body)
 
-	var geso domain.Gesotown
-	if err = json.Unmarshal(body, &geso); err != nil {
-		panic(err)
+	// filter
+	brands := []string{"ロッケンベルグ"}
+	gears := []domain.Gear{}
+	for _, gear := range geso.LimitedGears {
+		gears = append(gears, domain.Gear(gear))
 	}
 
-	fmt.Println(&geso)
+	brandFilteredGears := logic.FilterGearsByBrand(gears, brands)
 
-	/* line */
-	notification.PostPickupBrandMessage(geso)
-
-	for i := 0; i < 6; i++ {
-		gear := domain.Gear(geso.LimitedGears[i])
+	// notify
+	for _, gear := range brandFilteredGears {
 		notification.PostGearMessage(gear)
 	}
-
+	// notification.PostPickupBrandMessage(*geso)
 }
