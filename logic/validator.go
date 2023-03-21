@@ -2,7 +2,7 @@ package logic
 
 import "gear-notification/domain"
 
-func ConfirmBrand(selection []string) (string, bool) {
+func ValidateBrand(selection []string) (string, bool) {
 	brandNameList := domain.GetBrandNameList()
 
 	for _, s := range selection {
@@ -13,5 +13,4 @@ func ConfirmBrand(selection []string) (string, bool) {
 	}
 
 	return "", true
-
 }
