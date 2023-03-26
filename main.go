@@ -48,6 +48,12 @@ func main() {
 
 	log.Print(brandFilteredGears)
 
+	content := "本日のギア通知\n"
+	msg := linebot.NewTextMessage(content)
+	if _, err := bot.BroadcastMessage(msg).Do(); err != nil {
+		log.Fatal(err)
+	}
+
 	for _, gear := range brandFilteredGears {
 		content := "本日のギア\n" +
 			gear.Gear.Name + "[" + gear.Gear.Brand.Name + "]" + "\n" +
