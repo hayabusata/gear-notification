@@ -4,7 +4,6 @@ import (
 	"gear-notification/client"
 	"gear-notification/domain"
 	"gear-notification/logic"
-	"gear-notification/notification"
 	"log"
 	"os"
 
@@ -17,7 +16,7 @@ func main() {
 		panic(err)
 	}
 
-	lc := notification.NewLineClient("https://notify-api.line.me/api/notify")
+	// lc := notification.NewLineClient("https://notify-api.line.me/api/notify")
 
 	// input
 	// brandInputs := []string{"ロッケンベルグ", "ないん"}
