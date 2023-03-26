@@ -46,6 +46,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	log.Print(brandFilteredGears)
+
 	for _, gear := range brandFilteredGears {
 		content := "本日のギア\n" +
 			gear.Gear.Name + "[" + gear.Gear.Brand.Name + "]" + "\n" +
