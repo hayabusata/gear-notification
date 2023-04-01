@@ -12,7 +12,7 @@ func GetGesotownGearList() (*domain.Gesotown, error) {
 	res, err := http.Get("https://api.koukun.jp/splatoon/3/geso/")
 	log.Print(res)
 	if err != nil {
-		log.Print(err)
+		log.Printf("response log: %v", res)
 		return nil, err
 	}
 	defer res.Body.Close()

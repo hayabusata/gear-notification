@@ -5,6 +5,7 @@ import (
 	"gear-notification/domain"
 	"gear-notification/logic"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -15,6 +16,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	res, err := http.Get("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json")
+	log.Printf("response log: %v", res)
+	if err != nil {
+		log.Printf("errorlog: %s", err)
+	}
+	return
 
 	// lc := notification.NewLineClient("https://notify-api.line.me/api/notify")
 
