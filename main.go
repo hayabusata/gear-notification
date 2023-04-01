@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	res, err := http.Get("https: //api.koukun.jp/splatoon/3/schedules/coop")
+	res, err := http.Get("https://api.koukun.jp/splatoon/3/schedules/coop")
 	log.Printf("test-response log: %v", res)
 	if err != nil {
 		log.Printf("test-error log: %v", err)
