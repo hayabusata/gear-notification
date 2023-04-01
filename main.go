@@ -5,6 +5,7 @@ import (
 	"gear-notification/domain"
 	"gear-notification/logic"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -14,6 +15,12 @@ func main() {
 	geso, err := client.GetGesotownGearList()
 	if err != nil {
 		panic(err)
+	}
+	res, err := http.Get("https: //api.koukun.jp/splatoon/3/schedules/coop")
+	log.Printf("test-response log: %v", res)
+	if err != nil {
+		log.Printf("test-error log: %v", err)
+		return
 	}
 
 	// lc := notification.NewLineClient("https://notify-api.line.me/api/notify")
