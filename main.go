@@ -17,7 +17,7 @@ func main() {
 		panic(err)
 	}
 
-	res, err := http.Get("https://spla3.yuu26.com/api/schedule")
+	// res, err := http.Get("https://spla3.yuu26.com/api/schedule")
 	res, err := http.Get("https://splatoon3.ink/data/gear.json")
 	log.Printf("test-response log: %v", res)
 	if err != nil {
