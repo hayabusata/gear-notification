@@ -28,7 +28,7 @@ func main() {
 	// }
 
 	// filter
-	brands := []string{"ヤコ"}
+	brands := []string{"ロッケンベルグ"}
 
 	gears := []domain.Gear{}
 	for _, gear := range geso.LimitedGears {
