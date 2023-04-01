@@ -10,9 +10,9 @@ import (
 
 func GetGesotownGearList() (*domain.Gesotown, error) {
 	res, err := http.Get("https://api.koukun.jp/splatoon/3/geso/")
-	log.Print(res)
+	log.Printf("response log: %v", res)
 	if err != nil {
-		log.Printf("response log: %v", res)
+		log.Printf("error log: %v", err)
 		return nil, err
 	}
 	defer res.Body.Close()
