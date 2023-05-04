@@ -5,22 +5,15 @@ import (
 	"gear-notification/domain"
 	"gear-notification/logic"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
-func main() {
+func notifyGesotownGears() {
 	geso, err := client.GetGesotownGearList()
 	if err != nil {
 		panic(err)
-	}
-	res, err := http.Get("https://api.koukun.jp/splatoon/3/schedules/coop")
-	log.Printf("test-response log: %v", res)
-	if err != nil {
-		log.Printf("test-error log: %v", err)
-		return
 	}
 
 	// lc := notification.NewLineClient("https://notify-api.line.me/api/notify")
@@ -35,7 +28,7 @@ func main() {
 	// }
 
 	// filter
-	brands := []string{"ロッケンベルグ"}
+	brands := []string{"ホタックス"}
 
 	gears := []domain.Gear{}
 	for _, gear := range geso.LimitedGears {
@@ -62,8 +55,7 @@ func main() {
 	}
 
 	for _, gear := range brandFilteredGears {
-		content := "本日のギア\n" +
-			gear.Gear.Name + "[" + gear.Gear.Brand.Name + "]" + "\n" +
+		content := gear.Gear.Name + "[" + gear.Gear.Brand.Name + "]" + "\n" +
 			"(" + gear.Gear.PrimaryGearPower + ")\n" +
 			gear.SaleEndTime + "まで\n"
 		msg := linebot.NewTextMessage(content)
@@ -72,12 +64,12 @@ func main() {
 			log.Fatal(err)
 		}
 	}
+}
 
-	// line notify
-	// for _, gear := range brandFilteredGears {
-	// 	if err = lc.PostGearMessage(gear); err != nil {
-	// 		panic(err)
-	// 	}
-	// 	fmt.Println(gear)
-	// }
+func receiveUserMessageServer() {
+
+}
+
+func main() {
+	notifyGesotownGears()
 }
